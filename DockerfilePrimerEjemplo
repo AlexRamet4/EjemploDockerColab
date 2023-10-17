@@ -1,0 +1,11 @@
+FROM amazoncorretto:21
+
+WORKDIR /java-test
+
+COPY ./Main.java ./Main.java
+
+# Run se ejecuta al buildear
+RUN [ "javac", "Main.java" ] 
+
+# CMD se ejecuta al hacer docker run (se pone siempre al final)
+CMD [ "java", "Main" ]
