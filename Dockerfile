@@ -1,7 +1,15 @@
-FROM amazoncorretto:21
+FROM amazoncorretto:21 as build
 
-WORKDIR /java-test
+WORKDIR /app/
 
-RUN echo "Hello World"
+COPY Main.java /app/
 
-ENTRYPOINT [ "javac" ]
+RUN javac Main.java
+
+FROM amazoncorretto:21 as execute
+
+WORKDIR /app/
+
+COPY --from=build /app/Main.class /app/Main.class
+
+ENTRYPOINT [ "java", "Main" ]
